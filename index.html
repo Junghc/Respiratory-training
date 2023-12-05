@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Respiratory-training</title>
+</head>
+
+<style>
+    div.circle {
+        width: 25px;
+        height: 25px;
+        border-radius: 100%;
+
+        border: orange 1px solid;
+        transition: transform 5s;
+        transform-origin: top center;
+    }
+</style>
+
+<body>
+
+
+
+    <select name="" id="option">
+        <option value="4000">4</option>
+        <option value="5000">5</option>
+        <option value="6000">6</option>
+        <option value="7000">7</option>
+        <option value="8000">8</option>
+    </select>
+    <button id="btnLabel" onclick="train()">
+        開始
+    </button>
+
+
+    <div id="circle" class="circle"></div>
+    <p id="currentAction">吸氣</p>
+
+
+    <script>
+
+        let timer = false;
+        let action = true;
+        let example = document.getElementById("circle");
+
+
+        function train() {
+            let frequency = document.getElementById("option").value;
+
+            if (!timer) {
+                document.getElementById("btnLabel").innerHTML = '結束';
+
+                timer = window.setInterval(function () {
+                    document.getElementById("currentAction").innerHTML = action ? '吐氣' : '吸氣';
+                    if (action) {
+                        // example.style.width = "25px";
+                        // example.style.height = "25px";
+                        example.style.transform = "scale(10, 10)";
+                        example.style.transition = "transform 5s";
+                    } else {
+                        // example.style.width = "250px";
+                        // example.style.height = "250px";
+                        example.style.transform = "scale(1, 1)";
+                        example.style.transition = "transform 5s";
+                    }
+                    action = !action;
+                    let date = new Date();
+
+                    console.log(date);
+                }, frequency);
+            } else {
+                clearInterval(timer);
+                timer = false;
+                document.getElementById("btnLabel").innerHTML = '開始';
+                document.getElementById("currentAction").innerHTML = '吸氣';
+            }
+
+        }
+
+
+    </script>
+
+
+</body>
+
+</html>
