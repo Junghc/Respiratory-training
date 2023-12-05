@@ -38,6 +38,16 @@
     <div id="circle" class="circle"></div>
     <p id="currentAction">吸氣</p>
 
+    <audio hidden id="player1">
+        <!-- <source src="horse.ogg" type="audio/ogg"> -->
+        <source src="吸氣.mp3" type="audio/mpeg">
+    </audio>
+
+    <audio hidden id="player2">
+        <!-- <source src="horse.ogg" type="audio/ogg"> -->
+        <source src="吐氣.mp3" type="audio/mpeg">
+    </audio>
+
 
     <script>
 
@@ -51,19 +61,27 @@
 
             if (!timer) {
                 document.getElementById("btnLabel").innerHTML = '結束';
-                example.style.transition = "transform " + (frequency-1) +  "s";
+                example.style.transition = "transform " + (frequency - 1) + "s";
                 example.style.transform = action ? "scale(10, 10)" : "scale(1, 1)";
                 document.getElementById("currentAction").innerHTML = '吸氣';
+                document.getElementById("player1").play();
                 action = !action;
 
 
                 timer = window.setInterval(function () {
-                    document.getElementById("currentAction").innerHTML = !action ? '吐氣' : '吸氣';   
+                    document.getElementById("currentAction").innerHTML = !action ? '吐氣' : '吸氣';
+                    if(!action) {
+                        document.getElementById("player1").pause();
+                        document.getElementById("player2").play();
+                    } else {
+                        document.getElementById("player1").play();
+                        document.getElementById("player2").pause();
+                    }
                     example.style.transform = action ? "scale(10, 10)" : "scale(1, 1)";
                     action = !action;
                     let date = new Date();
                     console.log(date);
-                }, frequency*1000);
+                }, frequency * 1000);
             } else {
                 clearInterval(timer);
                 timer = false;
@@ -73,7 +91,9 @@
                 example.style.width = "25px";
                 example.style.height = "25px";
                 example.style.transform = "scale(1, 1)";
-                example.style.transition = "transform 0.1s"
+                example.style.transition = "transform 0.1s";
+                document.getElementById("player1").pause();
+                document.getElementById("player2").pause();
             }
 
         }
