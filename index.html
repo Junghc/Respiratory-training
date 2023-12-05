@@ -61,10 +61,10 @@
 
             if (!timer) {
                 document.getElementById("btnLabel").innerHTML = '結束';
+                document.getElementById("player1").play();
                 example.style.transition = "transform " + (frequency - 1) + "s";
                 example.style.transform = action ? "scale(10, 10)" : "scale(1, 1)";
                 document.getElementById("currentAction").innerHTML = '吸氣';
-                document.getElementById("player1").play();
                 action = !action;
 
 
