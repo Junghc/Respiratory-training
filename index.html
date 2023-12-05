@@ -15,8 +15,7 @@
         border-radius: 100%;
 
         border: orange 1px solid;
-        transition: transform 5s;
-        transform-origin: top center;
+        transform-origin: top left;
     }
 </style>
 
@@ -25,11 +24,11 @@
 
 
     <select name="" id="option">
-        <option value="4000">4</option>
-        <option value="5000">5</option>
-        <option value="6000">6</option>
-        <option value="7000">7</option>
-        <option value="8000">8</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
     </select>
     <button id="btnLabel" onclick="train()">
         開始
@@ -52,30 +51,29 @@
 
             if (!timer) {
                 document.getElementById("btnLabel").innerHTML = '結束';
+                example.style.transition = "transform " + (frequency-1) +  "s";
+                example.style.transform = action ? "scale(10, 10)" : "scale(1, 1)";
+                document.getElementById("currentAction").innerHTML = '吸氣';
+                action = !action;
+
 
                 timer = window.setInterval(function () {
-                    document.getElementById("currentAction").innerHTML = action ? '吐氣' : '吸氣';
-                    if (action) {
-                        // example.style.width = "25px";
-                        // example.style.height = "25px";
-                        example.style.transform = "scale(10, 10)";
-                        example.style.transition = "transform 5s";
-                    } else {
-                        // example.style.width = "250px";
-                        // example.style.height = "250px";
-                        example.style.transform = "scale(1, 1)";
-                        example.style.transition = "transform 5s";
-                    }
+                    document.getElementById("currentAction").innerHTML = !action ? '吐氣' : '吸氣';   
+                    example.style.transform = action ? "scale(10, 10)" : "scale(1, 1)";
                     action = !action;
                     let date = new Date();
-
                     console.log(date);
-                }, frequency);
+                }, frequency*1000);
             } else {
                 clearInterval(timer);
                 timer = false;
+                action = true;
                 document.getElementById("btnLabel").innerHTML = '開始';
                 document.getElementById("currentAction").innerHTML = '吸氣';
+                example.style.width = "25px";
+                example.style.height = "25px";
+                example.style.transform = "scale(1, 1)";
+                example.style.transition = "transform 0.1s"
             }
 
         }
